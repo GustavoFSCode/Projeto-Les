@@ -1,12 +1,8 @@
-# Creative JS Coder
+## ## Conclua operações CRUD (criar, ler, atualizar, excluir), incluindo paginação, filtrar dados, mostrar entradas, controlar o tamanho da tabela usando armazenamento local HTML, CSS e JavaScript.
 
 
-## Complete CRUD (Create, Read, Update, Delete) Operations including Pagination, Filter Data, Show entries, Control the Table Size Using HTML, CSS and JavaScript Local Storage.
-
-<br>
 
 
-<img src="./img/CRUD with Pagination.png">
 
 
 

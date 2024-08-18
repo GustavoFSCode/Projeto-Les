@@ -3,27 +3,28 @@ darkBg = document.querySelector('.dark_bg'),
 popupForm = document.querySelector('.popup'),
 crossBtn = document.querySelector('.closeBtn'),
 submitBtn = document.querySelector('.submitBtn'),
- modalTitle = document.querySelector('.modalTitle'),
- popupFooter = document.querySelector('.popupFooter'),
- imgInput = document.querySelector('.img'),
- imgHolder = document.querySelector('.imgholder')
- form = document.querySelector('form'),
- formInputFields = document.querySelectorAll('form input'),
-  uploadimg = document.querySelector("#uploadimg"),
-  fName = document.getElementById("fName"),
-  lName = document.getElementById("lName"),
-  age = document.getElementById("age"),
-  city = document.getElementById("city"),
-  position = document.getElementById("position"),
-  salary = document.getElementById("salary"),
-  sDate = document.getElementById("sDate"),
-  email = document.getElementById("email"),
-  phone = document.getElementById("phone"),
-  entries = document.querySelector(".showEntries"),
-  tabSize = document.getElementById("table_size"),
-  userInfo = document.querySelector(".userInfo"),
-  table = document.querySelector("table"),
-  filterData = document.getElementById("search")
+modalTitle = document.querySelector('.modalTitle'),
+popupFooter = document.querySelector('.popupFooter'),
+imgInput = document.querySelector('.img'),
+imgHolder = document.querySelector('.imgholder')
+form = document.querySelector('form'),
+formInputFields = document.querySelectorAll('form input'),
+uploadimg = document.querySelector("#uploadimg"),
+Name = document.getElementById("name"),
+genero = document.getElementById("genero"),
+cpf = document.getElementById("cpf"),
+rg = document.getElementById("rg"),
+nascimento = document.getElementById("sDate"),
+cep = document.getElementById("cep"),
+estado = document.getElementById("estado"),
+city = document.getElementById("city"),
+email = document.getElementById("email"),
+phone = document.getElementById("phone"),
+entries = document.querySelector(".showEntries"),
+tabSize = document.getElementById("table_size"),
+userInfo = document.querySelector(".userInfo"),
+table = document.querySelector("table"),
+filterData = document.getElementById("search")
 
 let originalData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : []
 let getData = [...originalData]
@@ -42,14 +43,23 @@ showInfo()
 
 
 newMemberAddBtn.addEventListener('click', ()=> {
-    isEdit = false
-    submitBtn.innerHTML = "Submit"
-    modalTitle.innerHTML = "Fill the Form"
-    popupFooter.style.display = "block"
-    imgInput.src = "./img/pic1.png"
-    darkBg.classList.add('active')
-    popupForm.classList.add('active')
-})
+    isEdit = false;
+    submitBtn.innerHTML = "Submit";
+    modalTitle.innerHTML = "Fill the Form";
+    popupFooter.style.display = "block";
+    imgInput.src = "./img/pic1.png";
+    darkBg.classList.add('active');
+    popupForm.classList.add('active');
+    
+    // Reativar todos os campos desativados
+    formInputFields.forEach(input => {
+        input.disabled = false;
+    });
+
+    // Permitir o upload de imagem novamente
+    imgHolder.style.pointerEvents = "auto";
+});
+
 
 crossBtn.addEventListener('click', ()=>{
     darkBg.classList.remove('active')
@@ -147,24 +157,23 @@ function showInfo(){
         for(var i=tab_start; i<tab_end; i++){
             var staff = getData[i]
 
-
             if(staff){
                 let createElement = `<tr class = "employeeDetails">
                 <td>${i+1}</td>
                 <td><img src="${staff.picture}" alt="" width="40" height="40"></td>
-                <td>${staff.fName + " " + staff.lName}</td>
-                <td>${staff.ageVal}</td>
-                <td>${staff.cityVal}</td>
-                <td>${staff.positionVal}</td>
-                <td>${staff.salaryVal}</td>
-                <td>${staff.sDateVal}</td>
-                <td>${staff.emailVal}</td>
-                <td>${staff.phoneVal}</td>
+                <td>${staff.name}</td>
+                <td>${staff.genero}</td>
+                <td>${staff.cpf}</td>
+                <td>${staff.rg}</td>
+                <td>${staff.cep}</td>
+                <td>${staff.estado}</td>
+                <td>${staff.city}</td>
+                <td>${staff.email}</td>
+                <td>${staff.phone}</td>
                 <td>
-                    <button onclick="readInfo('${staff.picture}', '${staff.fName}', '${staff.lName}', '${staff.ageVal}', '${staff.cityVal}', '${staff.positionVal}', '${staff.salaryVal}', '${staff.sDateVal}', '${staff.emailVal}', '${staff.phoneVal}')"><i class="fa-regular fa-eye"></i></button>
+                    <button onclick="readInfo('${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', '${staff.rg}', '${staff.nascimento}', '${staff.cep}', '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-eye"></i></button>
 
-                    <button onclick="editInfo('${i}', '${staff.picture}', '${staff.fName}', '${staff.lName}', '${staff.ageVal}', '${staff.cityVal}', '${staff.positionVal}', '${staff.salaryVal}', '${staff.sDateVal}', '${staff.emailVal}', '${staff.phoneVal}')"><i class="fa-regular fa-pen-to-square"></i></button>
-
+                    <button onclick="editInfo('${i}', '${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', '${staff.rg}', '${staff.nascimento}', '${staff.cep}', '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-pen-to-square"></i></button>
 
                     <button onclick = "deleteInfo(${i})"><i class="fa-regular fa-trash-can"></i></button>
                 </td>
@@ -175,10 +184,8 @@ function showInfo(){
             }
         }
     }
-
-
     else{
-        userInfo.innerHTML = `<tr class="employeeDetails"><td class="empty" colspan="11" align="center">No data available in table</td></tr>`
+        userInfo.innerHTML = `<tr class="employeeDetails"><td class="empty" colspan="12" align="center">No data available in table</td></tr>`
         table.style.minWidth = "1400px"
     }
 }
@@ -186,17 +193,18 @@ function showInfo(){
 showInfo()
 
 
-function readInfo(pic, fname, lname, Age, City, Position, Salary, SDate, Email, Phone){
+function readInfo(pic, nameVal, generoVal, cpfVal, rgVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal){
     imgInput.src = pic
-    fName.value = fname
-    lName.value = lname
-    age.value = Age
-    city.value = City
-    position.value = Position
-    salary.value = Salary
-    sDate.value = SDate
-    email.value = Email
-    phone.value = Phone
+    name.value = nameVal
+    genero.value = generoVal
+    cpf.value = cpfVal
+    rg.value = rgVal
+    nascimento.value = nascimentoVal
+    cep.value = cepVal
+    estado.value = estadoVal
+    city.value = cityVal
+    email.value = emailVal
+    phone.value = phoneVal
 
     darkBg.classList.add('active')
     popupForm.classList.add('active')
@@ -206,11 +214,10 @@ function readInfo(pic, fname, lname, Age, City, Position, Salary, SDate, Email, 
         input.disabled = true
     })
 
-
     imgHolder.style.pointerEvents = "none"
 }
 
-function editInfo(id, pic, fname, lname, Age, City, Position, Salary, SDate, Email, Phone){
+function editInfo(id, pic, nameVal, generoVal, cpfVal, rgVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal){
     isEdit = true
     editId = id
 
@@ -221,28 +228,29 @@ function editInfo(id, pic, fname, lname, Age, City, Position, Salary, SDate, Ema
     originalData[originalIndex] = {
         id: id,
         picture: pic,
-        fName: fname,
-        lName: lname,
-        ageVal: Age,
-        cityVal: City,
-        positionVal: Position,
-        salaryVal: Salary,
-        sDateVal: SDate,
-        emailVal: Email,
-        phoneVal: Phone
+        name: nameVal,
+        genero: generoVal,
+        cpf: cpfVal,
+        rg: rgVal,
+        nascimento: nascimentoVal,
+        cep: cepVal,
+        estado: estadoVal,
+        city: cityVal,
+        email: emailVal,
+        phone: phoneVal
     }
 
     imgInput.src = pic
-    fName.value = fname
-    lName.value = lname
-    age.value = Age
-    city.value = City
-    position.value = Position
-    salary.value = Salary
-    sDate.value = SDate
-    email.value = Email
-    phone.value = Phone
-
+    name.value = nameVal
+    genero.value = generoVal
+    cpf.value = cpfVal
+    rg.value = rgVal
+    nascimento.value = nascimentoVal
+    cep.value = cepVal
+    estado.value = estadoVal
+    city.value = cityVal
+    email.value = emailVal
+    phone.value = phoneVal
 
     darkBg.classList.add('active')
     popupForm.classList.add('active')
@@ -252,7 +260,6 @@ function editInfo(id, pic, fname, lname, Age, City, Position, Salary, SDate, Ema
     formInputFields.forEach(input => {
         input.disabled = false
     })
-
 
     imgHolder.style.pointerEvents = "auto"
 }
@@ -303,16 +310,17 @@ form.addEventListener('submit', (e)=> {
 
     const information = {
         id: Date.now(),
-        picture: imgInput.src == undefined ? "./img/pic1.png" :imgInput.src,
-        fName: fName.value,
-        lName: lName.value,
-        ageVal: age.value,
-        cityVal: city.value,
-        positionVal: position.value,
-        salaryVal: salary.value,
-        sDateVal: sDate.value,
-        emailVal: email.value,
-        phoneVal: phone.value
+        picture: imgInput.src == undefined ? "./img/pic1.png" : imgInput.src,
+        name: name.value,
+        genero: genero.value,
+        cpf: cpf.value,
+        rg: rg.value,
+        nascimento: nascimento.value,
+        cep: cep.value,
+        estado: estado.value,
+        city: city.value,
+        email: email.value,
+        phone: phone.value
     }
 
     if(!isEdit){
@@ -331,7 +339,6 @@ form.addEventListener('submit', (e)=> {
     popupForm.classList.remove('active')
     form.reset()
 
-
     highlightIndexBtn()
     displayIndexBtn()
     showInfo()
@@ -345,12 +352,10 @@ form.addEventListener('submit', (e)=> {
         nextBtn.classList.remove("act")
     }
 
-
     if(currentIndex > 1){
         prevBtn.classList.add("act")
     }
 })
-
 
 function next(){
     var prevBtn = document.querySelector('.prev')
@@ -427,25 +432,23 @@ filterData.addEventListener("input", ()=> {
     if(searchTerm !== ""){
 
         const filteredData = originalData.filter((item) => {
-            const fullName = (item.fName + " " + item.lName).toLowerCase()
-            const city = item.cityVal.toLowerCase()
-            const position = item.positionVal.toLowerCase()
+            const name = item.name.toLowerCase()
+            const city = item.city.toLowerCase()
+            const estado = item.estado.toLowerCase()
 
             return(
-                fullName.includes(searchTerm) ||
+                name.includes(searchTerm) ||
                 city.includes(searchTerm) ||
-                position.includes(searchTerm)
+                estado.includes(searchTerm)
             )
         })
 
         // Update the current data with filtered data
         getData = filteredData
     }
-
     else{
         getData = JSON.parse(localStorage.getItem('userProfile')) || []
     }
-
 
     currentIndex = 1
     startIndex = 1

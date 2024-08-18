@@ -347,7 +347,7 @@ table tr .empty{
     width: 100%;
     height: 100%;
 }
-
+form .inputFieldContainer .cpfRG,
 form .inputFieldContainer .nameField,
 form .inputFieldContainer .ageCityField,
 form .inputFieldContainer .postSalary{
@@ -357,6 +357,7 @@ form .inputFieldContainer .postSalary{
 }
 
 form .inputFieldContainer .nameField input,
+form .inputFieldContainer .cpfRG input,
 form .inputFieldContainer .ageCityField input,
 form .inputFieldContainer .postSalary input{
     width: 200px;

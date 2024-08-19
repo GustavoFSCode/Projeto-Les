@@ -153,7 +153,7 @@ function showInfo() {
             }
         }
     } else {
-        userInfo.innerHTML = `<tr class="employeeDetails"><td class="empty" colspan="12" align="center">No data available in table</td></tr>`;
+        userInfo.innerHTML = `<tr class="employeeDetails"><td class="empty" colspan="12" align="center">Sem dados disponíveis na tabela</td></tr>`;
     }
 }
 

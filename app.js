@@ -14,7 +14,9 @@ var newMemberAddBtn = document.querySelector('.addMemberBtn'),
     Name = document.getElementById("name"),
     genero = document.getElementById("genero"),
     cpf = document.getElementById("cpf"),
-    //rg = document.getElementById("rg"),
+    password = document.getElementById("password"),
+    confpassword = document.getElementById("confpassword"),
+    confpasswordContainer = document.getElementById('confpasswordContainer'),
     nascimento = document.getElementById("sDate"),
     cep = document.getElementById("cep"),
     estado = document.getElementById("estado"),
@@ -46,6 +48,15 @@ const diaHoje = hoje.getDate();
 const dataMaxima = anoAtras + '-' + (mesHoje < 10 ? '0' + mesHoje : mesHoje) + '-' + (diaHoje < 10 ? '0' + diaHoje : diaHoje);  
 document.getElementById('sDate').setAttribute('max', dataMaxima);
 
+// Esconde o campo de confirmação de senha no modo de edição
+function toggleConfPasswordVisibility() {
+    if (isEdit) {
+        confpasswordContainer.style.display = 'none'; // Oculta o campo
+    } else {
+        confpasswordContainer.style.display = 'block'; // Mostra o campo
+    }
+}
+
 // Ações ao adicionar um novo membro
 newMemberAddBtn.addEventListener('click', () => {
     isEdit = false;
@@ -58,6 +69,8 @@ newMemberAddBtn.addEventListener('click', () => {
     
     formInputFields.forEach(input => input.disabled = false);
     imgHolder.style.pointerEvents = "auto";
+
+    toggleConfPasswordVisibility();
 });
 
 // validação de CPF
@@ -192,11 +205,11 @@ function showInfo() {
                     <td>${staff.phone}</td>
                     <td>
                         <button onclick="readInfo('${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
-                        '${staff.nascimento}', '${staff.cep}', '${staff.estado}', '${staff.city}', '${staff.email}', 
+                        '${staff.nascimento}', '${staff.cep}', '${staff.password}', '${staff.confpassword}', '${staff.estado}', '${staff.city}', '${staff.email}', 
                         '${staff.phone}')"><i class="fa-regular fa-eye"></i></button>
 
                         <button onclick="editInfo(${i}, '${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
-                        '${staff.nascimento}', '${staff.cep}', 
+                        '${staff.nascimento}', '${staff.cep}', '${staff.password}', '${staff.confpassword}',
                         '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-pen-to-square"></i></button>
 
                         <button onclick="deleteInfo(${i})"><i class="fa-regular fa-trash-can"></i></button>
@@ -211,12 +224,14 @@ function showInfo() {
 }
 
 // Funções para visualizar, editar e excluir informações
-function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
+function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, passwordVal, confpasswordVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
     imgInput.src = pic;
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
     nascimento.value = nascimentoVal;
+    password.value = passwordVal;
+    confpassword.value = confpasswordVal;
     cep.value = cepVal;
     estado.value = estadoVal;
     city.value = cityVal;
@@ -231,7 +246,7 @@ function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, estado
     imgHolder.style.pointerEvents = "none";
 }
 
-function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
+function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, passwordVal, confpasswordVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
     isEdit = true;
     editId = id;
 
@@ -240,6 +255,8 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, es
     genero.value = generoVal;
     cpf.value = cpfVal;
     nascimento.value = nascimentoVal;
+    password.value = passwordVal;
+    confpassword.value = confpasswordVal;
     cep.value = cepVal;
     estado.value = estadoVal;
     city.value = cityVal;
@@ -253,6 +270,8 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, es
     submitBtn.innerHTML = "Atualizar";
     formInputFields.forEach(input => input.disabled = false);
     imgHolder.style.pointerEvents = "auto";
+
+    toggleConfPasswordVisibility();
 }
 
 function deleteInfo(index) {
@@ -288,6 +307,16 @@ form.addEventListener('submit', (e) => {
         return;
     }
     */
+
+    const password = document.getElementById('password').value.trim();
+    const confPassword = document.getElementById('confpassword').value.trim();
+
+    // Verifica se as senhas coincidem
+    if (password !== confPassword) {
+        alert('As senhas não coincidem. Por favor, verifique.');
+        return;
+    }
+
     const cpfValue = cpf.value.trim();
 
     if (!isCPFUnique(cpfValue) && !isEdit) {
@@ -302,6 +331,7 @@ form.addEventListener('submit', (e) => {
         genero: genero.value.trim(),
         cpf: cpf.value.trim(),
         nascimento: nascimento.value.trim(),
+        password: password,
         cep: cep.value.trim(),
         estado: estado.value.trim(),
         city: city.value.trim(),
@@ -339,7 +369,6 @@ filterData.addEventListener('keyup', function() {
         return item.name.toLowerCase().includes(filterValue) ||
                item.genero.toLowerCase().includes(filterValue) ||
                item.cpf.includes(filterValue) ||
-               item.rg.includes(filterValue) ||
                item.cep.includes(filterValue) ||
                item.estado.toLowerCase().includes(filterValue) ||
                item.city.toLowerCase().includes(filterValue) ||

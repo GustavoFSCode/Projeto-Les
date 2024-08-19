@@ -118,14 +118,15 @@
                                 onchange="try{setCustomValidity('')}catch(e){}">
                             </div>
 
+                            <div class="form_control">
+                                <label for="sDate">Data de Nascimento:</label>
+                                <input type="date" name="" id="sDate" min="1924-01-01" max="" 
+                                required oninvalid="this.setCustomValidity('Cadastro permitido apenas para maiores de 13 anos.')"
+                                onchange="try{setCustomValidity('')}catch(e){}">
+                            </div>
                         </div>
 
-                        <div class="form_control">
-                            <label for="sDate">Data de Nascimento:</label>
-                            <input type="date" name="" id="sDate" min="1924-01-01" max="" 
-                            required oninvalid="this.setCustomValidity('Cadastro permitido apenas para maiores de 13 anos.')"
-                            onchange="try{setCustomValidity('')}catch(e){}">
-                        </div>
+                        
 
                         <div class="form_control">
                             <label for="cep">CEP:</label>
@@ -134,6 +135,19 @@
                             onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
 
+                        <div class="regPassword">
+                            <div class="form_control">
+                                <label for="password">Senha:</label>
+                                <input type="password" id="password" name="password"  placeholder="Digite sua senha" 
+                                required>
+                            </div>
+
+                            <div id="confpasswordContainer" class="form_control">
+                                <label for="confpassword">Confirme sua senha:</label>
+                                <input type="password" id="confpassword" name="confpassword"  placeholder="Confirme sua senha"
+                                required>
+                            </div>
+                        </div>
                         <div class="ageCityField">
                             <div class="form_control">
                                 <label for="estado">Estado:</label>

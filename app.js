@@ -224,7 +224,7 @@ function showInfo() {
 }
 
 // Funções para visualizar, editar e excluir informações
-function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, passwordVal, confpasswordVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
+function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
     imgInput.src = pic;
     Name.value = nameVal;
     genero.value = generoVal;
@@ -246,7 +246,7 @@ function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, passwordVal, c
     imgHolder.style.pointerEvents = "none";
 }
 
-function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, passwordVal, confpasswordVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
+function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
     isEdit = true;
     editId = id;
 

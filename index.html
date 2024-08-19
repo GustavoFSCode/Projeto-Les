@@ -48,7 +48,6 @@
                     <th>Nome</th>
                     <th>Gênero</th>
                     <th>CPF</th>
-                    <th>RG</th>
                     <th>CEP</th>
                     <th>Estado</th>
                     <th>Cidade</th>
@@ -111,7 +110,7 @@
                             </div>
                         </div>
                         
-                        <div class="cpfRG">
+                        <div class="cpf">
                             <div class="form_control">
                                 <label for="cpf">CPF:</label>
                                 <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF (apenas números)" 
@@ -119,12 +118,6 @@
                                 onchange="try{setCustomValidity('')}catch(e){}">
                             </div>
 
-                            <div class="form_control">
-                                <label for="rg">RG:</label>
-                                <input type="text" id="rg" name="rg" placeholder="Digite o RG (apenas números)" 
-                                pattern="\d{9}" required oninvalid="this.setCustomValidity('É necessário informar um RG.')"
-                                onchange="try{setCustomValidity('')}catch(e){}">
-                            </div>
                         </div>
 
                         <div class="form_control">

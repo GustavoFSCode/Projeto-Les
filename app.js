@@ -14,7 +14,7 @@ var newMemberAddBtn = document.querySelector('.addMemberBtn'),
     Name = document.getElementById("name"),
     genero = document.getElementById("genero"),
     cpf = document.getElementById("cpf"),
-    rg = document.getElementById("rg"),
+    //rg = document.getElementById("rg"),
     nascimento = document.getElementById("sDate"),
     cep = document.getElementById("cep"),
     estado = document.getElementById("estado"),
@@ -185,16 +185,19 @@ function showInfo() {
                     <td>${staff.name}</td>
                     <td>${staff.genero}</td>
                     <td>${staff.cpf}</td>
-                    <td>${staff.rg}</td>
                     <td>${staff.cep}</td>
                     <td>${staff.estado}</td>
                     <td>${staff.city}</td>
                     <td>${staff.email}</td>
                     <td>${staff.phone}</td>
                     <td>
-                        <button onclick="readInfo('${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', '${staff.rg}', '${staff.nascimento}', '${staff.cep}', '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-eye"></i></button>
+                        <button onclick="readInfo('${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
+                        '${staff.nascimento}', '${staff.cep}', '${staff.estado}', '${staff.city}', '${staff.email}', 
+                        '${staff.phone}')"><i class="fa-regular fa-eye"></i></button>
 
-                        <button onclick="editInfo(${i}, '${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', '${staff.rg}', '${staff.nascimento}', '${staff.cep}', '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button onclick="editInfo(${i}, '${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
+                        '${staff.nascimento}', '${staff.cep}', 
+                        '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-pen-to-square"></i></button>
 
                         <button onclick="deleteInfo(${i})"><i class="fa-regular fa-trash-can"></i></button>
                     </td>
@@ -208,12 +211,11 @@ function showInfo() {
 }
 
 // Funções para visualizar, editar e excluir informações
-function readInfo(pic, nameVal, generoVal, cpfVal, rgVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
+function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
     imgInput.src = pic;
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
-    rg.value = rgVal;
     nascimento.value = nascimentoVal;
     cep.value = cepVal;
     estado.value = estadoVal;
@@ -229,7 +231,7 @@ function readInfo(pic, nameVal, generoVal, cpfVal, rgVal, nascimentoVal, cepVal,
     imgHolder.style.pointerEvents = "none";
 }
 
-function editInfo(id, pic, nameVal, generoVal, cpfVal, rgVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
+function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, estadoVal, cityVal, emailVal, phoneVal) {
     isEdit = true;
     editId = id;
 
@@ -237,7 +239,6 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, rgVal, nascimentoVal, cep
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
-    rg.value = rgVal;
     nascimento.value = nascimentoVal;
     cep.value = cepVal;
     estado.value = estadoVal;
@@ -280,12 +281,13 @@ function deleteInfo(index) {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    /* 
     const cpfVal = cpf.value.trim();
     if (!validarCPF(cpfVal)) {
         alert('CPF inválido. Por favor, insira um CPF válido.');
         return;
     }
-
+    */
     const cpfValue = cpf.value.trim();
 
     if (!isCPFUnique(cpfValue) && !isEdit) {
@@ -299,7 +301,6 @@ form.addEventListener('submit', (e) => {
         name: Name.value.trim(),
         genero: genero.value.trim(),
         cpf: cpf.value.trim(),
-        rg: rg.value.trim(),
         nascimento: nascimento.value.trim(),
         cep: cep.value.trim(),
         estado: estado.value.trim(),

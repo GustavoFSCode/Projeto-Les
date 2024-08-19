@@ -354,7 +354,7 @@ table tr .empty{
     width: 100%;
     height: 100%;
 }
-form .inputFieldContainer .cpfRG,
+form .inputFieldContainer .cpf,
 form .inputFieldContainer .nameField,
 form .inputFieldContainer .ageCityField{
     display: flex;
@@ -363,7 +363,7 @@ form .inputFieldContainer .ageCityField{
 }
 
 form .inputFieldContainer .nameField input,
-form .inputFieldContainer .cpfRG input,
+form .inputFieldContainer .cpf input,
 form .inputFieldContainer .ageCityField input{
     width: 230px;
 }

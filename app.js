@@ -38,6 +38,14 @@ var arrayLength = 0, tableSize = 10, startIndex = 1, endIndex = 0, currentIndex 
 // Exibe as informações inicialmente
 showInfo();
 
+// Define a data maxima de nascimento para hoje
+const hoje = new Date();  
+const anoAtras = hoje.getFullYear() - 13;  
+const mesHoje = hoje.getMonth() + 1;  
+const diaHoje = hoje.getDate();  
+const dataMaxima = anoAtras + '-' + (mesHoje < 10 ? '0' + mesHoje : mesHoje) + '-' + (diaHoje < 10 ? '0' + diaHoje : diaHoje);  
+document.getElementById('sDate').setAttribute('max', dataMaxima);
+
 // Ações ao adicionar um novo membro
 newMemberAddBtn.addEventListener('click', () => {
     isEdit = false;
@@ -51,6 +59,48 @@ newMemberAddBtn.addEventListener('click', () => {
     formInputFields.forEach(input => input.disabled = false);
     imgHolder.style.pointerEvents = "auto";
 });
+
+// validação de CPF
+function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, ''); // Remove qualquer coisa que não seja número
+
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+        return false; // CPF inválido se todos os números forem iguais
+    }
+
+    let soma = 0;
+    let resto;
+
+    // Validação do primeiro dígito verificador
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(9, 10))) {
+        return false;
+    }
+
+    soma = 0;
+    // Validação do segundo dígito verificador
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(10, 11))) {
+        return false;
+    }
+
+    return true;
+}
+
+// CPF único por pessoa
+function isCPFUnique(cpf) {
+    return !originalData.some((user) => user.cpf === cpf);
+}
 
 // Fechar o modal ao clicar no botão de fechar
 crossBtn.addEventListener('click', () => {
@@ -230,6 +280,19 @@ function deleteInfo(index) {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    const cpfVal = cpf.value.trim();
+    if (!validarCPF(cpfVal)) {
+        alert('CPF inválido. Por favor, insira um CPF válido.');
+        return;
+    }
+
+    const cpfValue = cpf.value.trim();
+
+    if (!isCPFUnique(cpfValue) && !isEdit) {
+        alert("Este CPF já está cadastrado.");
+        return;
+    }
+
     const information = {
         id: isEdit ? originalData[editId].id : Date.now(),
         picture: imgInput.src || "./img/pic1.png",
@@ -262,6 +325,7 @@ form.addEventListener('submit', (e) => {
     darkBg.classList.remove('active');
     popupForm.classList.remove('active');
 
+    showInfo();
     highlightIndexBtn();
     displayIndexBtn();
 });

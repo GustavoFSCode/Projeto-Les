@@ -255,7 +255,7 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, rgVal, nascimentoVal, cep
 }
 
 function deleteInfo(index) {
-    if (confirm("Are you sure you want to delete?")) {
+    if (confirm("Tem certeza que deseja deletar esse cliente?")) {
         originalData.splice(index, 1);
         localStorage.setItem("userProfile", JSON.stringify(originalData));
         getData = [...originalData];

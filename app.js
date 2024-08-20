@@ -177,9 +177,6 @@ function showInfo() {
                     <td>${staff.name}</td>
                     <td>${staff.genero}</td>
                     <td>${staff.cpf}</td>
-                    <td>${staff.cep}</td>
-                    <td>${staff.estado}</td>
-                    <td>${staff.city}</td>
                     <td>${staff.email}</td>
                     <td>${staff.phone}</td>
                     <td>
@@ -219,7 +216,7 @@ function readInfo(nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal
     darkBg.classList.add('active');
     popupForm.classList.add('active');
     popupFooter.style.display = "none";
-    modalTitle.innerHTML = "Profile";
+    modalTitle.innerHTML = "Perfil";
     formInputFields.forEach(input => input.disabled = true);
     genero.disabled = true;
     estado.disabled = true;

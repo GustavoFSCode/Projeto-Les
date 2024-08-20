@@ -114,14 +114,15 @@
                 </div>
             </form>
         </div>
-        <div class="popupFooter">
-            <footer class="popupFooter">
-                <button form="myForm" class="submitBtn">Enviar</button>
-            </footer>
-        </div>   
+
+        <footer class="popupFooter">
+            <button form="myForm" class="submitBtn">Enviar</button>
+        </footer>   
     </div>
     <script>
             let originalData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];
+
+            // Regex para validar a senha
             const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
 
             const hoje = new Date();  

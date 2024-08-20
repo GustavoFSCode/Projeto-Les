@@ -15,13 +15,6 @@
 
         <div class="body">
             <form action="#" id="myForm">
-                <div class="imgholder">
-                    <label for="uploadimg" class="upload">
-                        <input type="file" id="uploadimg" class="picture">
-                        <i class="fa-solid fa-plus"></i>
-                    </label>
-                    <img src="./img/pic1.png" alt="" width="150" height="150" class="img">
-                </div>
 
                 <div class="inputFieldContainer">
                     <div class="nameField">
@@ -128,7 +121,7 @@
     </div>
     <script>
             let originalData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];
-
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
 
             const hoje = new Date();  
             const anoAtras = hoje.getFullYear() - 13;  
@@ -177,34 +170,39 @@
                 return true;
             }
 
-        document.getElementById('myForm').addEventListener('submit', function(event) {
+            document.getElementById('myForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
-
-            const password = document.getElementById('password').value.trim();
-            const confPassword = document.getElementById('confpassword').value.trim();
-            
+            //Verifica se o CPF e valido
             const cpfVal = cpf.value.trim();
             if (!validarCPF(cpfVal)) {
                 alert('CPF inválido. Por favor, insira um CPF válido.');
                 return;
             }
-            
-             // Verifica se as senhas coincidem
-            if (password !== confPassword) {
-                alert('As senhas não coincidem. Por favor, verifique.');
-                return;
-            }
-            
+            //Verifica se o cpf ja foi cadastrado
             const cpfValue = cpf.value.trim();
 
             if (!isCPFUnique(cpfValue)) {
                 alert("Este CPF já está cadastrado.");
                 return;
             }
+            //Validacoes de senha 
+            const password = document.getElementById('password').value.trim();
+            const confPassword = document.getElementById('confpassword').value.trim();
+            
+           
+             //Verifica se a senha e forte
+            if (!regex.test(password)) {
+                alert('A senha deve conter no mínimo 8 caracteres, sendo pelo menos uma letra maiúscula, uma letra minúscula e um caractere especial.');
+                return;
+            }
+             // Verifica se as senhas coincidem
+            if (password !== confPassword) {
+                alert('As senhas não coincidem. Por favor, verifique.');
+                return;
+            }
             
             const formData = {
-                pic: document.querySelector('.img').src,
                 name: document.getElementById('name').value,
                 genero: document.getElementById('genero').value,
                 cpf: document.getElementById('cpf').value,

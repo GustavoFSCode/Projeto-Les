@@ -6,11 +6,8 @@ var newMemberAddBtn = document.querySelector('.addMemberBtn'),
     submitBtn = document.querySelector('.submitBtn'),
     modalTitle = document.querySelector('.modalTitle'),
     popupFooter = document.querySelector('.popupFooter'),
-    imgInput = document.querySelector('.img'),
-    imgHolder = document.querySelector('.imgholder'),
     form = document.querySelector('form'),
     formInputFields = document.querySelectorAll('form input'),
-    uploadimg = document.querySelector("#uploadimg"),
     Name = document.getElementById("name"),
     genero = document.getElementById("genero"),
     cpf = document.getElementById("cpf"),
@@ -63,12 +60,10 @@ newMemberAddBtn.addEventListener('click', () => {
     submitBtn.innerHTML = "Enviar";
     modalTitle.innerHTML = "Preencha o formulário";
     popupFooter.style.display = "block";
-    imgInput.src = "./img/pic1.png";
     darkBg.classList.add('active');
     popupForm.classList.add('active');
     
     formInputFields.forEach(input => input.disabled = false);
-    imgHolder.style.pointerEvents = "auto";
 
     toggleConfPasswordVisibility();
 });
@@ -132,21 +127,6 @@ darkBg.addEventListener('click', (event) => {
 });
 
 
-// Upload de imagem com validação de tamanho
-uploadimg.onchange = function() {
-    if (uploadimg.files[0].size < 2000000) { // Limite de 1MB
-        var fileReader = new FileReader();
-
-        fileReader.onload = function(e) {
-            imgInput.src = e.target.result;
-        };
-
-        fileReader.readAsDataURL(uploadimg.files[0]);
-    } else {
-        alert("O arquivo é muito grande! O limite máximo é 2MB");
-    }
-};
-
 // Funções de Paginação
 function preLoadCalculations() {
     arrayLength = getData.length;
@@ -194,7 +174,6 @@ function showInfo() {
             if (staff) {
                 let createElement = `<tr class="employeeDetails">
                     <td>${i + 1}</td>
-                    <td><img src="${staff.picture}" alt="" width="40" height="40"></td>
                     <td>${staff.name}</td>
                     <td>${staff.genero}</td>
                     <td>${staff.cpf}</td>
@@ -225,7 +204,6 @@ function showInfo() {
 
 // Funções para visualizar, editar e excluir informações
 function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
-    imgInput.src = pic;
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
@@ -243,7 +221,8 @@ function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwo
     popupFooter.style.display = "none";
     modalTitle.innerHTML = "Profile";
     formInputFields.forEach(input => input.disabled = true);
-    imgHolder.style.pointerEvents = "none";
+    genero.disabled = true;
+    estado.disabled = true;
     toggleConfPasswordVisibility();
 }
 
@@ -251,7 +230,6 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, pa
     isEdit = true;
     editId = id;
 
-    imgInput.src = pic;
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
@@ -277,7 +255,6 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, pa
             input.disabled = true;
         }
     });
-    imgHolder.style.pointerEvents = "auto";
 
     toggleConfPasswordVisibility();
 }
@@ -324,6 +301,13 @@ form.addEventListener('submit', (e) => {
         alert('As senhas não coincidem. Por favor, verifique.');
         return;
     }
+    // Regex para validar a senha
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+     //Verifica se a senha e forte
+     if (!regex.test(password)) {
+        alert('A senha deve conter no mínimo 8 caracteres, sendo pelo menos uma letra maiúscula, uma letra minúscula e um caractere especial.');
+        return;
+    }
 
     const cpfValue = cpf.value.trim();
 
@@ -335,7 +319,6 @@ form.addEventListener('submit', (e) => {
     
     const information = {
         id: isEdit ? originalData[editId].id : Date.now(),
-        picture: imgInput.src || "./img/pic1.png",
         name: Name.value.trim(),
         genero: genero.value.trim(),
         cpf: cpf.value.trim(),

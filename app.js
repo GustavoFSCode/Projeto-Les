@@ -55,6 +55,7 @@ function toggleConfPasswordVisibility() {
 }
 
 // Ações ao adicionar um novo membro
+/*
 newMemberAddBtn.addEventListener('click', () => {
     isEdit = false;
     submitBtn.innerHTML = "Enviar";
@@ -67,7 +68,7 @@ newMemberAddBtn.addEventListener('click', () => {
 
     toggleConfPasswordVisibility();
 });
-
+*/
 // validação de CPF
 function validarCPF(cpf) {
     cpf = cpf.replace(/[^\d]+/g, ''); // Remove qualquer coisa que não seja número

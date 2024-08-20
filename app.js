@@ -263,13 +263,20 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, pa
     city.value = cityVal;
     email.value = emailVal;
     phone.value = phoneVal;
-
+    
     darkBg.classList.add('active');
     popupForm.classList.add('active');
     popupFooter.style.display = "block";
     modalTitle.innerHTML = "Atualize suas informações";
     submitBtn.innerHTML = "Atualizar";
-    formInputFields.forEach(input => input.disabled = false);
+    formInputFields.forEach(input => {
+        if (input.id !== 'cpf' && input.id !== 'sDate') {
+            input.disabled = false;
+        }
+        else {
+            input.disabled = true;
+        }
+    });
     imgHolder.style.pointerEvents = "auto";
 
     toggleConfPasswordVisibility();

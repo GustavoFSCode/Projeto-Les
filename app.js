@@ -231,7 +231,7 @@ function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwo
     cpf.value = cpfVal;
     nascimento.value = nascimentoVal;
     password.value = passwordVal;
-    confpassword.value = confpasswordVal;
+    confpassword.value = passwordVal;
     cep.value = cepVal;
     estado.value = estadoVal;
     city.value = cityVal;
@@ -244,6 +244,7 @@ function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwo
     modalTitle.innerHTML = "Profile";
     formInputFields.forEach(input => input.disabled = true);
     imgHolder.style.pointerEvents = "none";
+    toggleConfPasswordVisibility();
 }
 
 function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
@@ -255,9 +256,9 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, pa
     genero.value = generoVal;
     cpf.value = cpfVal;
     nascimento.value = nascimentoVal;
-    password.value = passwordVal;
-    confpassword.value = confpasswordVal;
     cep.value = cepVal;
+    password.value = passwordVal;
+    confpassword.value = passwordVal;
     estado.value = estadoVal;
     city.value = cityVal;
     email.value = emailVal;
@@ -300,13 +301,13 @@ function deleteInfo(index) {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    /* 
+
     const cpfVal = cpf.value.trim();
     if (!validarCPF(cpfVal)) {
         alert('CPF inválido. Por favor, insira um CPF válido.');
         return;
     }
-    */
+
 
     const password = document.getElementById('password').value.trim();
     const confPassword = document.getElementById('confpassword').value.trim();
@@ -324,6 +325,7 @@ form.addEventListener('submit', (e) => {
         return;
     }
 
+    
     const information = {
         id: isEdit ? originalData[editId].id : Date.now(),
         picture: imgInput.src || "./img/pic1.png",
@@ -331,7 +333,8 @@ form.addEventListener('submit', (e) => {
         genero: genero.value.trim(),
         cpf: cpf.value.trim(),
         nascimento: nascimento.value.trim(),
-        password: password,
+        password: password.trim(),
+        confPassword: confPassword.trim(),
         cep: cep.value.trim(),
         estado: estado.value.trim(),
         city: city.value.trim(),
@@ -341,8 +344,8 @@ form.addEventListener('submit', (e) => {
 
     if (isEdit) {
         originalData[editId] = information;
-        submitBtn.innerHTML = "Submit";
-        modalTitle.innerHTML = "Fill the Form";
+        submitBtn.innerHTML = "Enviar";
+        modalTitle.innerHTML = "Preencha o formulário";
         isEdit = false;
     } else {
         originalData.push(information);
@@ -359,6 +362,7 @@ form.addEventListener('submit', (e) => {
     showInfo();
     highlightIndexBtn();
     displayIndexBtn();
+    window.location.href = "index.html";
 });
 
 // Busca e filtragem

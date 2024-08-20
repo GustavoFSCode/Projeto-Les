@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Registro</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2 class="modalTitle">Preencha o formulário</h2>
+        </header>
+
+        <div class="body">
+            <form action="#" id="myForm">
+                <div class="imgholder">
+                    <label for="uploadimg" class="upload">
+                        <input type="file" id="uploadimg" class="picture">
+                        <i class="fa-solid fa-plus"></i>
+                    </label>
+                    <img src="./img/pic1.png" alt="" width="150" height="150" class="img">
+                </div>
+
+                <div class="inputFieldContainer">
+                    <div class="nameField">
+                        <div class="form_control">
+                            <label for="name">Nome completo:</label>
+                            <input type="text" id="name" name="name" placeholder="Digite o nome" required oninvalid="this.setCustomValidity('É necessário informar seu nome completo.')" onchange="try{setCustomValidity('')}catch(e){}">
+                        </div>
+                        <div class="form_control">
+                            <label for="genero">Gênero:</label>
+                            <select id="genero" name="genero" required oninvalid="this.setCustomValidity('É necessário informar um gênero.')" onchange="try{setCustomValidity('')}catch(e){}">
+                                <option value="">Selecione um gênero</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Outro">Outro</option>
+                            </select>      
+                        </div>
+                    </div>
+                    
+                    <div class="cpf">
+                        <div class="form_control">
+                            <label for="cpf">CPF:</label>
+                            <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF (apenas números)" pattern="\d{11}" required oninvalid="this.setCustomValidity('É necessário informar um CPF.')" onchange="try{setCustomValidity('')}catch(e){}">
+                        </div>
+
+                        <div class="form_control">
+                            <label for="sDate">Data de Nascimento:</label>
+                            <input type="date" id="sDate" min="1924-01-01" max="" required oninvalid="this.setCustomValidity('Cadastro permitido apenas para maiores de 13 anos.')" onchange="try{setCustomValidity('')}catch(e){}">
+                        </div>
+                    </div>
+
+                    <div class="form_control">
+                        <label for="cep">CEP:</label>
+                        <input type="text" id="cep" name="cep" pattern="\d{8}" placeholder="Digite o CEP (apenas números)" required oninvalid="this.setCustomValidity('É necessário informar um CEP.')" onchange="try{setCustomValidity('')}catch(e){}">
+                    </div>
+
+                    <div class="regPassword">
+                        <div class="form_control">
+                            <label for="password">Senha:</label>
+                            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                        </div>
+
+                        <div id="confpasswordContainer" class="form_control">
+                            <label for="confpassword">Confirme sua senha:</label>
+                            <input type="password" id="confpassword" name="confpassword" placeholder="Confirme sua senha" required>
+                        </div>
+                    </div>
+
+                    <div class="ageCityField">
+                        <div class="form_control">
+                            <label for="estado">Estado:</label>
+                            <select id="estado" name="estado" required oninvalid="this.setCustomValidity('É necessário informar um Estado')" onchange="try{setCustomValidity('')}catch(e){}">
+                                <option value="">Selecione um estado</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                        <div class="form_control">
+                            <label for="city">Cidade:</label>
+                            <input type="text" id="city" name="city" placeholder="Digite a cidade" required oninvalid="this.setCustomValidity('É necessário informar uma cidade.')" onchange="try{setCustomValidity('')}catch(e){}">
+                        </div>
+                    </div>
+
+                    <div class="form_control">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="Digite o email" required oninvalid="this.setCustomValidity('É necessário informar um e-mail válido.')" onchange="try{setCustomValidity('')}catch(e){}">
+                    </div>
+
+                    <div class="form_control">
+                        <label for="phone">Telefone celular:</label>
+                        <input type="tel" name="phone" id="phone" minlength="8" maxlength="11" placeholder="O telefone deve possuir entre 8 a 11 digitos" required oninvalid="this.setCustomValidity('É necessário informar um número completo.')" onchange="try{setCustomValidity('')}catch(e){}">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <footer class="popupFooter">
+            <button form="myForm" class="submitBtn">Enviar</button>
+        </footer>   
+    </div>
+    <script>
+            let originalData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];
+
+
+            const hoje = new Date();  
+            const anoAtras = hoje.getFullYear() - 13;  
+            const mesHoje = hoje.getMonth() + 1;  
+            const diaHoje = hoje.getDate();  
+            const dataMaxima = anoAtras + '-' + (mesHoje < 10 ? '0' + mesHoje : mesHoje) + '-' + (diaHoje < 10 ? '0' + diaHoje : diaHoje);  
+            document.getElementById('sDate').setAttribute('max', dataMaxima);
+
+            function isCPFUnique(cpf) {
+                return !originalData.some((user) => user.cpf === cpf);
+            }
+
+            function validarCPF(cpf) {
+                cpf = cpf.replace(/[^\d]+/g, ''); // Remove qualquer coisa que não seja número
+
+                if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+                    return false; // CPF inválido se todos os números forem iguais
+                }
+
+                let soma = 0;
+                let resto;
+
+                // Validação do primeiro dígito verificador
+                for (let i = 1; i <= 9; i++) {
+                    soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+                }
+
+                resto = (soma * 10) % 11;
+                if (resto === 10 || resto === 11) resto = 0;
+                if (resto !== parseInt(cpf.substring(9, 10))) {
+                    return false;
+                }
+
+                soma = 0;
+                // Validação do segundo dígito verificador
+                for (let i = 1; i <= 10; i++) {
+                    soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+                }
+
+                resto = (soma * 10) % 11;
+                if (resto === 10 || resto === 11) resto = 0;
+                if (resto !== parseInt(cpf.substring(10, 11))) {
+                    return false;
+                }
+
+                return true;
+            }
+
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+
+            const password = document.getElementById('password').value.trim();
+            const confPassword = document.getElementById('confpassword').value.trim();
+            
+            const cpfVal = cpf.value.trim();
+            if (!validarCPF(cpfVal)) {
+                alert('CPF inválido. Por favor, insira um CPF válido.');
+                return;
+            }
+            
+             // Verifica se as senhas coincidem
+            if (password !== confPassword) {
+                alert('As senhas não coincidem. Por favor, verifique.');
+                return;
+            }
+            
+            const cpfValue = cpf.value.trim();
+
+            if (!isCPFUnique(cpfValue)) {
+                alert("Este CPF já está cadastrado.");
+                return;
+            }
+            
+            const formData = {
+                pic: document.querySelector('.img').src,
+                name: document.getElementById('name').value,
+                genero: document.getElementById('genero').value,
+                cpf: document.getElementById('cpf').value,
+                nascimento: document.getElementById('sDate').value,
+                cep: document.getElementById('cep').value,
+                password: document.getElementById('password').value,
+                confpassword: document.getElementById('confpassword').value,
+                estado: document.getElementById('estado').value,
+                city: document.getElementById('city').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            };
+    
+            let userProfile = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];
+            userProfile.push(formData);
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    
+            window.location.href = 'index.html'; // Redirect to index.html
+        });
+    </script>
+</body>
+</html>

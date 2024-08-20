@@ -91,8 +91,11 @@ body{
 }
 
 
+.addMemberBtn {
+    width: 125px;
+}
 
-header .addMemberBtn button, .popup header .closeBtn, .popup footer .submitBtn{
+header .addMemberBtn button, .popup header .closeBtn, .popup footer .submitBtn, .popupFooter .submitBtn {
     padding: 9px 14px;
     color: var(--dark8);
     background: transparent;
@@ -294,7 +297,7 @@ table tr .empty{
     padding: 0 15px;
 }
 
-.popup header .closeBtn:hover, .popup footer .submitBtn:hover{
+.popup header .closeBtn:hover, .popup footer .submitBtn:hover, .popupFooter .submitBtn:hover {
     border-color: var(--dark7);
     transition: 0.3s;
 }

@@ -183,11 +183,11 @@ function showInfo() {
                     <td>${staff.email}</td>
                     <td>${staff.phone}</td>
                     <td>
-                        <button onclick="readInfo('${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
+                        <button onclick="readInfo('${staff.name}', '${staff.genero}', '${staff.cpf}', 
                         '${staff.nascimento}', '${staff.cep}', '${staff.password}', '${staff.confpassword}', '${staff.estado}', '${staff.city}', '${staff.email}', 
                         '${staff.phone}')"><i class="fa-regular fa-eye"></i></button>
 
-                        <button onclick="editInfo(${i}, '${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
+                        <button onclick="editInfo(${i}, '${staff.name}', '${staff.genero}', '${staff.cpf}', 
                         '${staff.nascimento}', '${staff.cep}', '${staff.password}', '${staff.confpassword}',
                         '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-pen-to-square"></i></button>
 
@@ -203,7 +203,7 @@ function showInfo() {
 }
 
 // Funções para visualizar, editar e excluir informações
-function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
+function readInfo(nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
@@ -226,7 +226,7 @@ function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwo
     toggleConfPasswordVisibility();
 }
 
-function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
+function editInfo(id, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
     isEdit = true;
     editId = id;
 
@@ -241,7 +241,7 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, pa
     city.value = cityVal;
     email.value = emailVal;
     phone.value = phoneVal;
-    
+
     darkBg.classList.add('active');
     popupForm.classList.add('active');
     popupFooter.style.display = "block";
@@ -255,7 +255,8 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, pa
             input.disabled = true;
         }
     });
-
+    genero.disabled = false;
+    estado.disabled = false;
     toggleConfPasswordVisibility();
 }
 

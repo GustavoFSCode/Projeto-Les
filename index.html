@@ -46,7 +46,6 @@
             <thead>
                 <tr class="heading">
                     <th></th>
-                    <th>Foto</th>
                     <th>Nome</th>
                     <th>Gênero</th>
                     <th>CPF</th>
@@ -83,17 +82,15 @@
 
              <div class="body">
                 <form action="#" id="myForm">
-                    <div class="imgholder">
-                        <label for="uploadimg" class="upload">
-                            <input type="file" name="" id="uploadimg" class="picture">
-                            <i class="fa-solid fa-plus"></i>
-                        </label>
-                        <img src="./img/pic1.png" alt="" width="150" height="150" class="img">
-                    </div>
-
                     <div class="inputFieldContainer">
 
                         <div class="nameField">
+                            <div class="form_control">
+                                <label for="name">Nome completo:</label>
+                                <input type="text" id="name" name="name" placeholder="Digite o nome" 
+                                required oninvalid="this.setCustomValidity('É necessário informar seu nome completo.')"
+                                onchange="try{setCustomValidity('')}catch(e){}">
+                            </div>
                             <div class="form_control">
                                 <label for="name">Nome completo:</label>
                                 <input type="text" id="name" name="name" placeholder="Digite o nome" 

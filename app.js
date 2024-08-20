@@ -6,11 +6,8 @@ var newMemberAddBtn = document.querySelector('.addMemberBtn'),
     submitBtn = document.querySelector('.submitBtn'),
     modalTitle = document.querySelector('.modalTitle'),
     popupFooter = document.querySelector('.popupFooter'),
-    imgInput = document.querySelector('.img'),
-    imgHolder = document.querySelector('.imgholder'),
     form = document.querySelector('form'),
     formInputFields = document.querySelectorAll('form input'),
-    uploadimg = document.querySelector("#uploadimg"),
     Name = document.getElementById("name"),
     genero = document.getElementById("genero"),
     cpf = document.getElementById("cpf"),
@@ -63,12 +60,10 @@ newMemberAddBtn.addEventListener('click', () => {
     submitBtn.innerHTML = "Enviar";
     modalTitle.innerHTML = "Preencha o formulário";
     popupFooter.style.display = "block";
-    imgInput.src = "./img/pic1.png";
     darkBg.classList.add('active');
     popupForm.classList.add('active');
     
     formInputFields.forEach(input => input.disabled = false);
-    imgHolder.style.pointerEvents = "auto";
 
     toggleConfPasswordVisibility();
 });
@@ -132,21 +127,6 @@ darkBg.addEventListener('click', (event) => {
 });
 
 
-// Upload de imagem com validação de tamanho
-uploadimg.onchange = function() {
-    if (uploadimg.files[0].size < 2000000) { // Limite de 1MB
-        var fileReader = new FileReader();
-
-        fileReader.onload = function(e) {
-            imgInput.src = e.target.result;
-        };
-
-        fileReader.readAsDataURL(uploadimg.files[0]);
-    } else {
-        alert("O arquivo é muito grande! O limite máximo é 2MB");
-    }
-};
-
 // Funções de Paginação
 function preLoadCalculations() {
     arrayLength = getData.length;
@@ -194,7 +174,6 @@ function showInfo() {
             if (staff) {
                 let createElement = `<tr class="employeeDetails">
                     <td>${i + 1}</td>
-                    <td><img src="${staff.picture}" alt="" width="40" height="40"></td>
                     <td>${staff.name}</td>
                     <td>${staff.genero}</td>
                     <td>${staff.cpf}</td>
@@ -204,11 +183,11 @@ function showInfo() {
                     <td>${staff.email}</td>
                     <td>${staff.phone}</td>
                     <td>
-                        <button onclick="readInfo('${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
+                        <button onclick="readInfo('${staff.name}', '${staff.genero}', '${staff.cpf}', 
                         '${staff.nascimento}', '${staff.cep}', '${staff.password}', '${staff.confpassword}', '${staff.estado}', '${staff.city}', '${staff.email}', 
                         '${staff.phone}')"><i class="fa-regular fa-eye"></i></button>
 
-                        <button onclick="editInfo(${i}, '${staff.picture}', '${staff.name}', '${staff.genero}', '${staff.cpf}', 
+                        <button onclick="editInfo(${i}, '${staff.name}', '${staff.genero}', '${staff.cpf}', 
                         '${staff.nascimento}', '${staff.cep}', '${staff.password}', '${staff.confpassword}',
                         '${staff.estado}', '${staff.city}', '${staff.email}', '${staff.phone}')"><i class="fa-regular fa-pen-to-square"></i></button>
 
@@ -224,8 +203,7 @@ function showInfo() {
 }
 
 // Funções para visualizar, editar e excluir informações
-function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
-    imgInput.src = pic;
+function readInfo(nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
@@ -243,15 +221,15 @@ function readInfo(pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwo
     popupFooter.style.display = "none";
     modalTitle.innerHTML = "Profile";
     formInputFields.forEach(input => input.disabled = true);
-    imgHolder.style.pointerEvents = "none";
+    genero.disabled = true;
+    estado.disabled = true;
     toggleConfPasswordVisibility();
 }
 
-function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
+function editInfo(id, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, passwordVal, confpasswordVal, estadoVal, cityVal, emailVal, phoneVal) {
     isEdit = true;
     editId = id;
 
-    imgInput.src = pic;
     Name.value = nameVal;
     genero.value = generoVal;
     cpf.value = cpfVal;
@@ -269,9 +247,16 @@ function editInfo(id, pic, nameVal, generoVal, cpfVal, nascimentoVal, cepVal, pa
     popupFooter.style.display = "block";
     modalTitle.innerHTML = "Atualize suas informações";
     submitBtn.innerHTML = "Atualizar";
-    formInputFields.forEach(input => input.disabled = false);
-    imgHolder.style.pointerEvents = "auto";
-
+    formInputFields.forEach(input => {
+        if (input.id !== 'cpf' && input.id !== 'sDate') {
+            input.disabled = false;
+        }
+        else {
+            input.disabled = true;
+        }
+    });
+    genero.disabled = false;
+    estado.disabled = false;
     toggleConfPasswordVisibility();
 }
 
@@ -328,7 +313,6 @@ form.addEventListener('submit', (e) => {
     
     const information = {
         id: isEdit ? originalData[editId].id : Date.now(),
-        picture: imgInput.src || "./img/pic1.png",
         name: Name.value.trim(),
         genero: genero.value.trim(),
         cpf: cpf.value.trim(),

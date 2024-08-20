@@ -15,13 +15,6 @@
 
         <div class="body">
             <form action="#" id="myForm">
-                <div class="imgholder">
-                    <label for="uploadimg" class="upload">
-                        <input type="file" id="uploadimg" class="picture">
-                        <i class="fa-solid fa-plus"></i>
-                    </label>
-                    <img src="./img/pic1.png" alt="" width="150" height="150" class="img">
-                </div>
 
                 <div class="inputFieldContainer">
                     <div class="nameField">
@@ -121,10 +114,11 @@
                 </div>
             </form>
         </div>
-
-        <footer class="popupFooter">
-            <button form="myForm" class="submitBtn">Enviar</button>
-        </footer>   
+        <div class="popupFooter">
+            <footer class="popupFooter">
+                <button form="myForm" class="submitBtn">Enviar</button>
+            </footer>
+        </div>   
     </div>
     <script>
             let originalData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];
@@ -204,7 +198,6 @@
             }
             
             const formData = {
-                pic: document.querySelector('.img').src,
                 name: document.getElementById('name').value,
                 genero: document.getElementById('genero').value,
                 cpf: document.getElementById('cpf').value,

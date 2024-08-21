@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Poppins:wght@100;200;300;400&display=swap');
+
+:root {
+    --dark1: #0000004d;
+    --dark2: #181c20;
+    --dark3: #212529;
+    --dark4: #2d3135;
+    --dark5: #424549;
+    --dark6: #404346;
+    --dark7: #9c9c9c;
+    --dark8: #dae0e7;
+    --dark9: #262a2e;
+    --red1: #0096c7;
+}
+
+h2, h3 {
+    color: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(var(--red1) 50%, var(--dark2) 50%);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1400px;
+    padding: 20px;
+    gap: 20px;
+    /* Adiciona a propriedade `min-width` para garantir que o contêiner tenha largura suficiente */
+    min-width: 0;
+}
+
+.column {
+    /*display: inline-table; */
+    display: table-cell;
+    flex: 1 1 0; /* Permite que as colunas cresçam e encolham conforme o espaço disponível */
+    padding: 15px;
+    box-sizing: content-box;
+    background-color: var(--dark4);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--dark8);
+    width: 400px;
+}
+
+.personalInfo,
+.addressInfo,
+.payment-info {
+    min-width: 300px; /* Ajuste conforme necessário */
+}
+
+.form_control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form_control label {
+    margin-bottom: 5px;
+    color: var(--dark8);
+}
+
+.form_control input, 
+.form_control select {
+    padding: 10px;
+    border: 1px solid var(--dark6);
+    border-radius: 5px;
+    background-color: var(--dark5);
+    color: var(--dark8);
+}
+
+.popupFooter {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submitBtn {
+    padding: 10px 20px;
+    background-color: var(--red1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submitBtn:hover {
+    background-color: var(--dark4);
+}

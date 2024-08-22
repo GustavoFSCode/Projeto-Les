@@ -19,7 +19,9 @@
                         <h3>Dados Pessoais</h3>
                         <div class="form_control">
                             <label for="name">Nome completo:</label>
-                            <input type="text" id="name" name="name" placeholder="Digite o nome" required oninvalid="this.setCustomValidity('É necessário informar seu nome completo.')" onchange="try{setCustomValidity('')}catch(e){}">
+                            <input type="text" id="name" name="name" placeholder="Digite o nome" 
+                            maxlength="75"
+                            required oninvalid="this.setCustomValidity('É necessário informar seu nome completo.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         <div class="form_control">
                             <label for="genero">Gênero:</label>
@@ -40,7 +42,9 @@
                         </div>
                         <div class="form_control">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" placeholder="Digite o email" required oninvalid="this.setCustomValidity('É necessário informar um e-mail válido.')" onchange="try{setCustomValidity('')}catch(e){}">
+                            <input type="email" id="email" placeholder="Digite o email" 
+                            maxlength="155"
+                            required oninvalid="this.setCustomValidity('É necessário informar um e-mail válido.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         <div class="form_control">
                             <label for="phone">Telefone celular:</label>
@@ -106,6 +110,7 @@
                         <div class="form_control">
                             <label for="city">Cidade:</label>
                             <input type="text" id="city" name="city" placeholder="Digite a cidade" 
+                            maxlength="75"
                             required oninvalid="this.setCustomValidity('É necessário informar uma cidade.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         <div class="form_control">
@@ -115,16 +120,19 @@
                         <div class="form_control">
                             <label for="neighborhood">Bairro:</label>
                             <input type="text" id="neighborhood" name="neighborhood" placeholder="Digite o seu bairro" 
+                            maxlength="75"
                             required oninvalid="this.setCustomValidity('É necessário informar um bairro.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         <div class="form_control">
                             <label for="street">Rua:</label>
                             <input type="text" id="street" name="street" placeholder="Digite o nome da sua rua" 
+                            maxlength="75"
                             required oninvalid="this.setCustomValidity('É necessário informar uma rua.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         <div class="form_control">
                             <label for="houseNumber">Número:</label>
-                            <input type="text" id="houseNumber" name="houseNumber" placeholder="Digite o número da sua residência" 
+                            <input type="text" id="houseNumber" name="houseNumber" placeholder="Digite o número da sua residência"
+                            required pattern="\d{1,10}" maxlength="10" 
                             required oninvalid="this.setCustomValidity('É necessário informar um número de resiência.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         
@@ -141,6 +149,18 @@
                                     <option value="credit">Crédito</option>
                                     <option value="debit">Debito</option>
                             </select>
+                            <div class="form_control">
+                                <label for="flagCard">Bandeira do Cartão:</label>
+                                <select id="flagCard" name="flagCard" 
+                                required oninvalid="this.setCustomValidity('É necessário informar a bandeira do cartão')" onchange="try{setCustomValidity('')}catch(e){}">
+                                        <option value="">Selecione a bandeira do cartão</option>
+                                        <option value="visa">Visa</option>
+                                        <option value="mastercard">Mastercard</option>
+                                        <option value="elo">Elo</option>
+                                        <option value="discover">Discover</option>
+                                        <option value="americanExpress">American Express</option>
+                                        <option value="hipercard">Hipercard</option>
+                                </select>
                         <div class="form_control">
                             <label for="cardName">Nome no Cartão:</label>
                             <input type="text" id="cardName" name="cardName" placeholder="Digite o nome do proprietario do cartão" 
@@ -148,31 +168,87 @@
                         </div>
                         <div class="form_control">
                             <label for="cardNumber">Número do Cartão:</label>
-                            <input type="text" id="cardNumber" name="cardNumber" placeholder="Digite o número do cartão" 
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="Digite o número do cartão com 16 digitos" 
+                            pattern="\d{16}"
                             required oninvalid="this.setCustomValidity('É necessário informar o número do cartão.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         <div class="form_control">
                             <label for="expiryDate">Data de Validade:</label>
-                            <input type="text" id="expiryDate" name="expiryDate" placeholder="Digite a data de validade do cartão" 
+                            <input type="month" id="expiryDate" name="expiryDate" placeholder="Digite a data de validade do cartão" 
                             required oninvalid="this.setCustomValidity('É necessário informar a data de validade do cartão.')" onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                         <div class="form_control">
                             <label for="cvv">CVV:</label>
-                            <input type="text" id="cvv" name="cvv" placeholder="Digite o código de segurança do cartão" 
+                            <input type="text" id="cvv" name="cvv" placeholder="Digite o código de segurança do cartão"
+                            pattern="\d{3}" maxlength="3" 
                             required oninvalid="this.setCustomValidity('É necessário informar o código de segurança do cartão.')" onchange="try{setCustomValidity('')}catch(e){}">
-                        </div>
+                            <footer class="popupFooter">
+                                <button form="myForm" class="submitBtn">Enviar</button>
+                            </footer> 
+                        </div> 
                     </div>
                 </div>
             </form>
         </div>
         
 
-        <footer class="popupFooter">
-            <button form="myForm" class="submitBtn">Enviar</button>
-        </footer>   
+         
     </div>
     <script>
             let originalData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];
+
+            document.getElementById('cardNumber').addEventListener('input', function() {
+    let cardNumber = this.value.replace(/\s+/g, '');
+    
+    // Limitar a entrada a 16 dígitos
+    if (cardNumber.length > 16) {
+        cardNumber = cardNumber.slice(0, 16);
+        this.value = cardNumber;  // Atualiza o valor do campo de entrada
+    }
+
+    const typeCard = document.getElementById('typeCard');
+    const flagCard = document.getElementById('flagCard');
+
+    // Função para determinar a bandeira do cartão
+    function getCardType(number) {
+        const regexes = {
+            visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+            mastercard: /^5[1-5][0-9]{14}$/,
+            amex: /^3[47][0-9]{13}$/,
+            discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+            elo: /^(4011|4312|4389|4514|4576|5041|5066|5090|6277|6363|6362|6500|6504|6505|6506|6507|6509|6516|6550|6552)[0-9]{12,15}$/,
+            hipercard: /^(606282|3841)[0-9]{10,13}$/,
+        };
+
+        for (const [flag, pattern] of Object.entries(regexes)) {
+            if (pattern.test(number)) {
+                return flag;
+            }
+        }
+        return '';
+    }
+
+    // Definir a bandeira do cartão
+    const cardType = getCardType(cardNumber);
+
+    if (cardType) {
+        flagCard.value = cardType;
+        typeCard.value = ['visa', 'mastercard', 'elo', 'discover', 'amex', 'hipercard'].includes(cardType) ? 'credit' : 'debit';
+    } else {
+        flagCard.value = '';
+        typeCard.value = '';
+    }
+});
+
+
+            //Limita a data de expiração do cartão
+            const expiryDateInput = document.getElementById('expiryDate');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = ('0' + (today.getMonth() + 1)).slice(-2); // Formata o mês com dois dígitos
+
+            expiryDateInput.min = `${year}-${month}`;
+
 
             // Regex para validar a senha
             const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
@@ -273,6 +349,7 @@
                 street: document.getElementById('street').value,
                 houseNumber: document.getElementById('houseNumber').value,
                 typeCard: document.getElementById('typeCard').value,
+                flagCard: document.getElementById('flagCard').value,
                 cardName: document.getElementById('cardName').value,
                 cardNumber: document.getElementById('cardNumber').value,
                 expiryDate: document.getElementById('expiryDate').value,

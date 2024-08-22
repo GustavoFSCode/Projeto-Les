@@ -160,16 +160,17 @@
                             <label for="cvv">CVV:</label>
                             <input type="text" id="cvv" name="cvv" placeholder="Digite o código de segurança do cartão" 
                             required oninvalid="this.setCustomValidity('É necessário informar o código de segurança do cartão.')" onchange="try{setCustomValidity('')}catch(e){}">
-                        </div>
+                            <footer class="popupFooter">
+                                <button form="myForm" class="submitBtn">Enviar</button>
+                            </footer> 
+                        </div> 
                     </div>
                 </div>
             </form>
         </div>
         
 
-        <footer class="popupFooter">
-            <button form="myForm" class="submitBtn">Enviar</button>
-        </footer>   
+         
     </div>
     <script>
             let originalData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];

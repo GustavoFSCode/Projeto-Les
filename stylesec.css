@@ -90,9 +90,9 @@ body {
 
 .submitBtn {
     padding: 10px 20px;
-    background-color: var(--red1);
+    background-color: var(--dark4);
     color: white;
-    border: none;
+    border-color: black;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;

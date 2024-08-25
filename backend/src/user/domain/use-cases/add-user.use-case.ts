@@ -1,12 +1,12 @@
-import { UseCase } from 'src/common/domain/use-cases/use-case'
+import { UseCase } from '@/common/domain/use-cases/use-case'
 import { UserEntity } from '../entities/user.entity'
-import { MissingParamError } from 'src/common/domain/use-cases/errors/missing-param.error'
+import { MissingParamError } from '@/common/domain/use-cases/errors/missing-param.error'
 import { AddUser } from '../gateway/add-user.gateway'
-import { EmailValidator } from 'src/common/domain/use-cases/gateway/email-validator.gateway'
-import { InvalidParamError } from 'src/common/domain/use-cases/errors/invalid-param.error'
-import { CpfValidator } from 'src/common/domain/use-cases/gateway/cpf-validator.gateway'
+import { EmailValidator } from '@/common/domain/use-cases/gateway/email-validator.gateway'
+import { InvalidParamError } from '@/common/domain/use-cases/errors/invalid-param.error'
+import { CpfValidator } from '@/common/domain/use-cases/gateway/cpf-validator.gateway'
 import { AddUserEntity } from '../entities/add-user.entity'
-import { DateValidator } from 'src/common/domain/use-cases/gateway/date-validator.gateway'
+import { DateValidator } from '@/common/domain/use-cases/gateway/date-validator.gateway'
 
 interface Input {
   name: string
@@ -15,6 +15,7 @@ interface Input {
   birthDate: Date
   email: string
   password: string
+  passwordConfirmation: string
   phoneNumber: string
 }
 
@@ -33,6 +34,7 @@ export class AddUserUseCase implements UseCase<Input, UserEntity> {
     'birthDate',
     'email',
     'password',
+    'passwordConfirmation',
     'phoneNumber'
   ]
 
@@ -43,7 +45,20 @@ export class AddUserUseCase implements UseCase<Input, UserEntity> {
       }
     }
 
-    const { name, gender, cpf, birthDate, email, password, phoneNumber } = input
+    const {
+      name,
+      gender,
+      cpf,
+      birthDate,
+      email,
+      password,
+      passwordConfirmation,
+      phoneNumber
+    } = input
+
+    if (password !== passwordConfirmation) {
+      throw new InvalidParamError(`passwordConfirmation`)
+    }
 
     if (!this.cpfValidator.validate(cpf)) {
       throw new InvalidParamError(`cpf`)
